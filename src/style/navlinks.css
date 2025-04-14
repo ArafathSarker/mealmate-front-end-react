@@ -1,0 +1,127 @@
+:root {
+    --white: #ffffff;
+    --light-grey: #edf0f1;
+    --violet: #655be1;
+    --dark-violet: #5146e1;
+    --black: #21232a;
+    --soft-black:#2c2c2c;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+*{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+    text-decoration: none;
+}
+.logo{
+    margin-left: 1em;
+    font-size: 1.8em;
+    font-weight: bolder;
+    
+
+}
+
+.navigation{
+    display:flex;
+    justify-content: space-between;
+    justify-items: center;
+    padding:1.5em 0;
+    background-color:var(--white);
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    
+}
+
+.navlink{
+    display:flex;
+    gap:5em;
+}
+
+.link{
+    color:black;
+}
+
+.active{
+    color:white;
+    background-color: black;
+    padding:1em;
+    border-radius: 1em;
+    transition:all 0.3s;
+}
+
+.get-started{
+    padding:1em 1.5em;
+    color:white;
+    background-color:black;
+    border-radius: 1em;
+    margin-right: 1em;
+    border:2px solid black;
+    outline:none;
+
+}
+
+.get-started:hover{
+    color:black;
+    border:2px solid black;
+    background-color:transparent;
+    cursor: pointer;
+    transition:all 0.3s;
+
+}
+
+.arrow {
+    transform: translateX(-50%);
+    transition: all 0.3s ease; 
+
+}
+.get-started:hover .arrow{
+    transform: translateX(0);
+    transition: all 0.3s ease; 
+
+}
+
+
+
+/* Mobile styles */
+
+    @media (max-width: 768px) {
+        body{
+            background-color: var(--light-grey);
+            padding-bottom: 3em;
+            color:var(--black);
+        }
+        .navigation {
+              display:flex;
+              position: fixed;
+              bottom:0;
+              z-index: 100;
+              justify-content: space-between;
+              width:100%;
+              background-color:var(--white);
+              align-items:center ;
+              padding:1em 0;
+
+        }
+
+
+        .logo{
+            font-size: 1.1em;
+            
+        }
+
+        .get-started{
+            padding:0.5em 1em;
+        
+       }
+       .navlink{
+        display:flex;
+        gap:2em;
+       }
+       .navlink li span{
+        display: none;
+       } 
+    }

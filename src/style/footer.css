@@ -1,0 +1,58 @@
+:root{
+    --padding:0.5em;
+    --dark-violet: #5146e1;
+    --violet: #655be1;
+    --soft-black:#2c2c2c;
+}
+
+.footer-main{
+    box-sizing: border-box;
+    background-color:var(--soft-black) ;
+    width:100;
+    max-width: 100%;
+    padding: 3%;
+    color:white;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    font-family: sans-serif;
+    line-height: 2;
+}
+
+.footer-main li:nth-child(1){
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+
+.icon{
+    font-size: 2em;
+    display:flex;
+    gap:1em;
+}
+
+#email{
+    padding:var(--padding);
+    border:none;
+    outline:none;
+}
+
+#email + button {
+    padding:var(--padding);
+    border: none;
+    outline:none;
+    background-color:var(--dark-violet);
+}
+
+#email + button:hover{
+    cursor: pointer;
+    background-color: var(--violet);
+}
+
+@media (max-width: 768px){
+    .footer-main{
+        display:block;
+        text-align: justify;
+    }
+   
+}
