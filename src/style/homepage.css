@@ -41,9 +41,9 @@
     justify-content: center;
     justify-items: center;
     position: relative;
-    background-color:#5b7c34;
-    font-family: sans-serif;
-    /* background: linear-gradient(90deg,rgba(133, 197, 222, 1) 0%, rgba(79, 161, 144, 1) 38%, rgba(87, 199, 133, 1) 100%, rgba(55, 212, 209, 1) 100%); */
+    background-color:#354e19;
+    font-family: monospace, sans-serif;
+    background: linear-gradient(45deg,var(--dark-violet), var(--violet));
 }
 
 .hero > * + *{
@@ -56,7 +56,7 @@
    font-family: sans-serif;
    font-size:2rem;
    line-height: var(--font-size);
-   color:black;
+   color:var(--white);
   
 }
 
@@ -66,7 +66,7 @@
   font-size: 1.1em;
   text-align: justify;
   line-height: var(--font-size);
-  color:black;
+  color:var(--white);
   width: 30vw;
   height:30vh;
  
@@ -78,6 +78,7 @@
   background-color:black;
   border:none;
   outline:none;
+  font-weight: bold;
   border-radius: var(--radius);
   border:1px solid black;
   
@@ -94,7 +95,8 @@
   padding:1.5em 3em;
   font-family: sans-serif;
   margin-left:1em;
-  color:black;
+  color:var(--white);
+  font-weight: bold;
   background-color:transparent;
   border:1px solid black;
   outline:none;

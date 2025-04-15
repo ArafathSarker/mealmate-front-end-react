@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/contact.css'
 import { MdEmail } from "react-icons/md";
-import { FaLocationPin } from "react-icons/fa6";
+import { FaLocationArrow } from "react-icons/fa";
 export default function Contact() {
   const handlesubmit = (e)=>{
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function Contact() {
     <div className='companay-contact-wrapper'>
         <h2>Info</h2>
         <p><a href='mailto:arafathmd324@gmail.com' style={{color:"white"}}><MdEmail className='all-icon'/> arafathmd324@gmail.com</a></p>
-        <p><FaLocationPin className='all-icon'/> Dhaka, Uttara</p>
+        <p><FaLocationArrow className='all-icon'/> Dhaka, Uttara</p>
     </div>
    </div>
   )
