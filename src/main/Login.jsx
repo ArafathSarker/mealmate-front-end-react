@@ -1,15 +1,61 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import LoginImage from "../assets/login.png"
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useSend from '../customHooks/useSend';
 import "../style/login.css"
 export default function Login() {
+  const navigate = useNavigate();
+  useEffect(() => {
+      const token = localStorage.getItem("Authorization");
+  
+      (async () => {
+        try {
+          const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token,
+            }
+          });
+          const data = await res.json();
+          console.log(data);
+          if(data.success){
+            navigate('/');
+          }
+          // Do something with data if needed
+        } catch (err) {
+          console.error("Redirecting due to error:", err.message);
+          navigate('/login');
+        }
+      })();
+    }, []);
    const [showPassword, setShowPassword] = useState(false);
+   
+   const [Values,setValues] = useState({
+    username:"",
+    password:""
+   });
     const togglePasswordVisibility = () => {
       setShowPassword(setShowPassword => !setShowPassword);
     };
-    const handlelogin = (e)=>{
+
+    const handleChange = (e)=>{
+           const {name,value} = e.target;
+          setValues((prev)=>({
+              ...prev,
+              [name]:value   
+          }));
+    }
+    const handlelogin = async (e)=>{
       e.preventDefault();
+      const res = await useSend("http://127.0.0.1:3000/app/mealmate/api/login",Values);
+          if(res.status==200) 
+            { 
+              localStorage.setItem("Authorization",res.token);
+              navigate('/dashboard');
+            }
+          
     }
   
   return (
@@ -19,13 +65,18 @@ export default function Login() {
         <h2>Welcome Back</h2>
         <p>Log in to your MealMate account</p>
         <label htmlFor="username" >
-          <input name='username' type='text' placeholder=' ' required/>
-          <span>Email/Username</span>
+          <input name='username' 
+          value={Values.username}
+          onChange={handleChange}
+          type='text' placeholder=' ' required/>
+          <span>Username</span>
         </label>
   
        <label htmlFor="password">
                <input 
                required
+               value={Values.password}
+               onChange={handleChange}
                className='pass' 
                name='password'
                 type={showPassword ? "text" :"password"}

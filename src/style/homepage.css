@@ -153,7 +153,27 @@
 .feature-card p{
   margin-top:2em;
 }
-
+.not-btn-show{
+  display:none;
+}
+.dashboard-btn{
+  width:100%;
+  height: 4em;
+  font-weight: bolder;
+  outline:none;
+  border:none;
+  border-radius: 6px;
+  background-color: black;
+  color:white;
+}
+.dashboard-btn:hover{
+  background-color: white;
+  color:black;
+  cursor: pointer;
+}
+.no-dashboard-btn{
+  display:none;
+}
 @media (max-width: 768px) {
   .feature-card {
     text-align: center;

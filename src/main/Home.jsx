@@ -1,15 +1,39 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import "../style/homepage.css"
 import mobile from "../assets/mobile.png"
 import hero from "../assets/hero.png"
 import { useNavigate } from 'react-router-dom'
 export default function Home() {
   const navigate = useNavigate();
+  const [showbutton,setbutton] = useState(false);
+      useEffect(()=>{
+        const token = localStorage.getItem("Authorization");
+        (async()=>{      
+                  try{        
+                    const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard",{
+                      method:'GET',
+                      headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization': token,
+                      }
+                    });
+                       const data = await res.json();
+                       if(data.success)  setbutton(true);
+                  }
+               catch(err){
+                  setbutton(false);
+               }
+  
+              })();
+      });
   const handleSignUp=()=>{
      navigate('./signup');
   }
   const handleLogin=()=>{
     navigate('./login');
+  }
+  const handledashboardbtn =()=>{
+       navigate('/dashboard');
   }
   return (
    <div>
@@ -23,7 +47,11 @@ export default function Home() {
     <h1>Start Tracking Your Meal Spending Today!</h1>
     <p>Easily calculate the cost of your meals and keep track of your food expenses.
     Sign up now and take control of your meal costs.</p>
-    <div className='btn'>
+
+    <button className={(showbutton ? "dashboard-btn" : "no-dashboard-btn")}
+    onClick={handledashboardbtn}
+    >Dashboard</button>
+    <div className={(showbutton ? 'not-btn-show' :'btn')}>
     <button id="signup" onClick={handleSignUp}>Sign Up</button>
     <button id="login" onClick={handleLogin}>Log In</button>
     </div>

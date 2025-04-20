@@ -29,5 +29,5 @@
 }
 .goback-btn:hover{
     background: linear-gradient(90deg,rgba(18, 20, 20, 1) 0%, rgba(49, 61, 61, 1) 92%);
-
+    cursor: pointer;
 }

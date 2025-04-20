@@ -87,7 +87,9 @@
 
 }
 
-
+.not-show{
+    display: none;
+}
 
 /* Mobile styles */
 
