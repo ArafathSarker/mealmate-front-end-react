@@ -46,6 +46,7 @@
     background: linear-gradient(45deg,var(--dark-violet), var(--violet));
 }
 
+
 .hero > * + *{
   margin-top: 2em;
 }
@@ -111,6 +112,7 @@
   transition: all 0.3s;
   cursor: pointer;
 }
+
 .features-section > h2{
   font-family: sans-serif;
   text-align: center;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import {useNavigate } from 'react-router-dom';
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 export default function Dashboard() {
   const navigate = useNavigate();
 
@@ -16,10 +16,10 @@ export default function Dashboard() {
             'Authorization': token,
           }
         });
-        const data = await res.json();
-        console.log(data);
+        await res.json();
         
-      } catch (err) {
+      } 
+      catch (err) {
         console.error("Redirecting due to error:", err.message);
         navigate('/login');
       }
@@ -27,6 +27,32 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>Dashboard</div>
+    
+    <div className='dash-div'>
+      <h1 className='dashboard'>Dashboard</h1>
+      <div className='dash-div1'>
+      <section className='dash-sec'>
+        <h2>Total Cost</h2>
+        <span>0 <FaBangladeshiTakaSign/></span>
+      </section >
+      <section className='dash-sec'>
+        <h2>Total Deposit</h2>
+        <span>0 <FaBangladeshiTakaSign/></span>
+      </section>
+      </div>
+     <div className='dash-div2'>
+     <section className='dash-sec'>
+        <h2>Total Due</h2>
+        <span>0 <FaBangladeshiTakaSign/></span>
+      </section>
+      <section className='dash-sec'>
+        <h2>Pending Amount</h2>
+        <span>0 <FaBangladeshiTakaSign/></span>
+      </section>
+     </div>
+     
+    </div>
+    
+    
   );
 }

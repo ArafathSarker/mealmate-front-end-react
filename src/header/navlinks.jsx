@@ -42,9 +42,9 @@ export default function Navlinks() {
    <nav className='navigation'>
    <div className='logo'>MealMate</div>
    <ul className='navlink'>
-   <li><NavLink className={({isActive})=>isActive ?"link active":"link"} to="/"><FaHome /><span style={{marginLeft:"0.5em"}}>Home</span></NavLink></li>
-   <li><NavLink className={({isActive})=>isActive ?"link active":"link"} to="/about"><BsPatchQuestionFill/><span style={{marginLeft:"0.5em"}}>About</span></NavLink></li>
-   <li><NavLink className={({isActive})=>isActive ?"link active":"link"} to="/contact"><RiContactsLine /><span style={{marginLeft:"0.5em"}}>Contact</span></NavLink></li>
+   <li><NavLink className={({isActive})=>isActive ?"active":"link"} to="/"><FaHome /><span style={{marginLeft:"0.5em"}}>Home</span></NavLink></li>
+   <li><NavLink className={({isActive})=>isActive ?"active":"link"} to="/about"><BsPatchQuestionFill/><span style={{marginLeft:"0.5em"}}>About</span></NavLink></li>
+   <li><NavLink className={({isActive})=>isActive ?"active":"link"} to="/contact"><RiContactsLine /><span style={{marginLeft:"0.5em"}}>Contact</span></NavLink></li>
    <li> <HashLink smooth to="/#features"><SiStarship href='#features' /><span style={{marginLeft:"0.5em"}}>Features</span></HashLink></li>
    
    

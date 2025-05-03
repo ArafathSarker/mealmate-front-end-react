@@ -53,6 +53,7 @@ export default function Login() {
           if(res.status==200) 
             { 
               localStorage.setItem("Authorization",res.token);
+              localStorage.setItem("UserName",res.username);
               navigate('/dashboard');
             }
           
