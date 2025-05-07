@@ -42,7 +42,7 @@ export default function GroupForm() {
           });
 
           const adduserdata = await adduserres.json();
-          if(adduserdata.success && groupdata.success) navigate("/dashboard");
+          if(adduserdata.success || groupdata.success) navigate("/dashboard");
           
       }catch(err)
       {

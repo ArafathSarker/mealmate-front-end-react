@@ -1,0 +1,168 @@
+.calculate-form-wrapper{
+    width:100vw;
+    height: 100vh;
+    font-family: monospace,sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculate-form{
+   width:85%;
+   height: 95%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   justify-items: center;
+   align-items: center;
+   padding: auto;
+   border-radius: 2rem;
+   box-shadow:
+   0 2px 4px rgba(0, 0, 0, 0.06),
+   0 8px 16px rgba(0, 0, 0, 0.08);
+}
+.calculate-form:hover{
+  box-shadow:
+  0 4px 8px rgba(0, 0, 0, 0.08),
+  0 12px 24px rgba(0, 0, 0, 0.1);
+}
+.div-wrapper-all{
+       display:flex;
+       flex-direction: column;
+       gap:2rem;
+       justify-items: center;
+       align-items: left;
+}
+.calculate-form label {
+    position: relative;
+    font-weight: bolder;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    margin-bottom: 1.5em;
+}
+.calculate-form label > input{
+    max-width: 100%;
+    height: 3em;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid rgb(199, 200, 199);
+    font-size: 1em;
+  }
+
+  .calculate-form label > span {
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+    color: #666;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .calculate-form label > input:focus + span
+, .calculate-form label > input:not(:placeholder-shown) + span { 
+  transform: translateY(-1.8em);
+  font-size: 0.85em;
+  color: black;
+}
+.calculate-form label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+    z-index: 0;
+  }
+
+  .calculate-form label:has(input:focus)::after {
+    width: 100%;
+  }
+
+  .normalbtn {
+    color: white;
+    width: 30%;
+    height: 2rem;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(88, 97, 97, 1) 100%);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.normalbtn:hover {
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(49, 61, 61, 1) 92%);
+    cursor: pointer;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.normalbtn:active {
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.calculatebtn {
+  color: white;
+  width: 100%;
+  height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(88, 97, 97, 1) 100%);
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculatebtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.2) 100%);
+  animation: calculatingEffect 2s infinite linear;
+  z-index: 0;
+}
+
+.calculatebtn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calculatebtn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes calculatingEffect {
+  0% {
+      left: -100%;
+  }
+  100% {
+      left: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .calculate-form{
+    flex-direction: column;
+    height: 100%;
+    
+  }
+  .calculate-form-wrapper{
+    height: 100%;
+  }
+.heading-wrapper{
+  margin-top: 2rem;
+  text-align: center;
+}
+
+}
