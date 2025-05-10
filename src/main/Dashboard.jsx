@@ -14,6 +14,7 @@ export default function Dashboard() {
     refund: 0,
     numberofMeal: 0,
     totalConsumed:0,
+    deposit:0,
   });
   useEffect(() => {
     const token = localStorage.getItem("Authorization");
@@ -93,6 +94,10 @@ export default function Dashboard() {
       </section>
      </div>
      <div className='dash-div-all'>
+     <section className='dash-sec'>
+        <h2>Your Deposite</h2>
+        <span>{groupUserValues.deposit}<FaBangladeshiTakaSign/></span>
+      </section>
       <section className='dash-sec'>
         <h2>Total Consumed</h2>
         <span>{groupUserValues.totalConsumed} <FaBangladeshiTakaSign/></span>

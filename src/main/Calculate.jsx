@@ -11,8 +11,8 @@ export default function Calculate() {
        deposit:'',
        addcost:'',
        username:'',
-       cleardue:'',
     });
+    //security check is the member already in a group or not
   useEffect(() => {
       const token = localStorage.getItem("Authorization");
       const name = localStorage.getItem("UserName");
@@ -42,13 +42,14 @@ export default function Calculate() {
           if(data.success){
             navigate('/calculate');
           }
-          // Do something with data if needed
+          
         } catch (err) {
           console.error("Redirecting due to error:", err.message);
           navigate('/login');
         }
       })();
     }, []);
+    //Updating the state values from input fields
     const handleChange = (e)=>{
       const {name,value} = e.target;
       setValues(prev=>({
@@ -56,9 +57,167 @@ export default function Calculate() {
             [name]:value
       }));
  };
+ //For stop refreshing the browser
  const handleSubmit = async (e)=>
   {
     e.preventDefault();
+  }
+  //For adding members in the group with api
+  const handleaddmembersubmit = async ()=>{
+        try{
+            const name = localStorage.getItem("UserName");
+           const groupres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/group`,{
+              method:"post",
+              headers:{
+                'Content-Type': 'application/json'
+              },
+              body:JSON.stringify({
+                name
+              })
+            });
+            const groupdata = await groupres.json();
+           const userList = Values.addmembers.split(" ");
+          const adduserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/adduser`,{
+            method:"post",
+            headers:{
+              'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+              groupname:groupdata.groupname,
+              userList:userList
+            })
+          });
+
+          const adduserdata = await adduserres.json();
+          if(adduserdata.success || groupdata.success) navigate("/dashboard");
+          
+      }catch(err)
+      {
+           console.log(`Sorry error:${err}`);
+      }
+  }
+  const handledepositsubmit = async()=>{
+    try{
+      const name = localStorage.getItem("UserName");
+     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+        method:"post",
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+    const groupuserdata = await groupuserres.json();
+    const depositres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatedeposit`,{
+      method:"post",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        userId:groupuserdata._id,
+        groupId:groupuserdata.group,
+        depositAmount:Values.deposit
+      })
+    });
+
+    
+    if(depositres.ok) navigate("/dashboard");
+    
+}catch(err)
+{
+     console.log(`Sorry error:${err}`);
+}
+  }
+  const handleaddmealsubmit = async()=>{
+    try{
+      const name = localStorage.getItem("UserName");
+     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+        method:"post",
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+    const groupuserdata = await groupuserres.json();
+    const depositres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatemeals`,{
+      method:"post",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        userId:groupuserdata._id,
+        groupId:groupuserdata.group,
+        mealCount:Values.meal
+      })
+    });
+
+    
+    if(depositres.ok) navigate("/dashboard");
+    
+}catch(err)
+{
+     console.log(`Sorry error:${err}`);
+}
+  }
+
+  //adding cost to the group
+  const handleaddcostsubmit = async()=>{
+    try{
+      const name = localStorage.getItem("UserName");
+     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+        method:"post",
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+    const groupuserdata = await groupuserres.json();
+    const addcostres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updateaddcost`,{
+      method:"post",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        groupId:groupuserdata.group,
+        cost:Values.addcost
+      })
+    });
+
+    
+    if(addcostres.ok) navigate("/dashboard");
+    
+}catch(err)
+{
+     console.log(`Sorry error:${err}`);
+}
+  }
+  //clearing dues of the user
+  const handleclearduesubmit = async()=>{
+    try{
+      const name = localStorage.getItem("UserName");
+    const cleardueres= await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/cleardue`,{
+      method:"post",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        name,
+        username:Values.username
+      })
+    });
+
+    
+    if(cleardueres.ok) navigate("/dashboard");
+    
+}catch(err)
+{
+     console.log(`Sorry error:${err}`);
+}
   }
  return (
   <>
@@ -80,7 +239,7 @@ export default function Calculate() {
            placeholder=' '/>
           <span>Add Members</span>
          </label>
-         <button type='submit' className='normalbtn'>submit</button>
+         <button type='submit' className='normalbtn' onClick={handleaddmembersubmit}>submit</button>
         </div>
         <div>
         <label htmlFor='deposit'>
@@ -93,7 +252,7 @@ export default function Calculate() {
            placeholder=' '/>
           <span>Deposit</span>
          </label>
-         <button type='submit' className='normalbtn'>deposit</button>
+         <button type='submit' className='normalbtn' onClick={handledepositsubmit}>deposit</button>
         </div>
         <div>
         <label htmlFor='meal'>
@@ -106,7 +265,7 @@ export default function Calculate() {
            placeholder=' '/>
           <span>Add Meal</span>
          </label>
-         <button type='submit' className='normalbtn'>add</button>
+         <button type='submit' className='normalbtn' onClick={handleaddmealsubmit}>add</button>
         </div>
       </div>
        <div className='div-wrapper-all'>
@@ -121,7 +280,7 @@ export default function Calculate() {
            placeholder=' '/>
           <span>Add Cost</span>
          </label>
-         <button type='submit' className='normalbtn'>add</button>
+         <button type='submit' className='normalbtn' onClick={handleaddcostsubmit}>add</button>
         </div>
         <div>
         <label htmlFor='username'>
@@ -133,18 +292,8 @@ export default function Calculate() {
            className='username' 
            placeholder=' '/>
           <span>Username</span>
-          </label>
-          <label htmlFor='cleardue'>
-          <input 
-          value={Values.cleardue}
-          type='text'
-          onChange={handleChange}
-          name='cleardue'
-           className='cleardue' 
-           placeholder=' '/>
-          <span>Amount</span>
          </label>
-         <button type='submit' className='normalbtn'>clear</button>
+         <button type='submit' className='normalbtn' onClick={handleclearduesubmit}>clear</button>
         </div>
         <button type='submit' className='calculatebtn'>Calculate</button>
         </div>
