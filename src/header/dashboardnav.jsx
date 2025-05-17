@@ -1,7 +1,7 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import { MdSpaceDashboard } from "react-icons/md";
-import { ImCalculator } from "react-icons/im";
+import { CiCalculator2 } from "react-icons/ci";
 import { TbListSearch } from "react-icons/tb";
 import '../style/dashboard.css'
 export default function Dashboardnav() {
@@ -12,7 +12,7 @@ export default function Dashboardnav() {
              to='/dashboard'><span><MdSpaceDashboard/></span></NavLink></li>
             <li><NavLink 
             className={({isActive}) => isActive ? "dash-active" : "dash-link"}
-            to='/calculate'><span><ImCalculator/></span></NavLink></li>
+            to='/calculate'><span><CiCalculator2/></span></NavLink></li>
             <li><NavLink 
             className={({isActive}) => isActive ? "dash-active" : "dash-link"}
             to='/list'><span><TbListSearch/></span></NavLink></li>

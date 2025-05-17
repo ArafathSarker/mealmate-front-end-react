@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../style/groupform.css"
 export default function GroupForm() {
   const navigate = useNavigate();
@@ -42,7 +44,32 @@ export default function GroupForm() {
           });
 
           const adduserdata = await adduserres.json();
-          if(adduserdata.success || groupdata.success) navigate("/dashboard");
+          if(adduserdata.success || groupdata.success) {
+            toast.success("Group Created Successfully", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 2000);
+          }else {
+            toast.error("Group Creation Failed", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
           
       }catch(err)
       {
@@ -50,6 +77,7 @@ export default function GroupForm() {
       }
     }
   return (
+    <>
     <div className='groupformwrapper'>
         <form className='groupform'
         
@@ -73,10 +101,12 @@ export default function GroupForm() {
           name='addmembers'
            className='addmembers' 
            placeholder=' '/>
-          <span>Add Members</span>
+          <span>Add Members (Optional)</span>
          </label>
          <button type='submit' className='grpsubmitbtn'>submit</button>
          </form>
     </div>
+    <ToastContainer/>
+    </>
   )
 }

@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react'
+import { Helmet } from "react-helmet";
 import "../style/homepage.css"
 import mobile from "../assets/mobile.png"
 import hero from "../assets/hero.png"
@@ -36,6 +37,11 @@ export default function Home() {
        navigate('/dashboard');
   }
   return (
+    <> 
+    <Helmet>
+        <title>MealMate - Effortless Group Meal Management</title>
+        
+      </Helmet>
    <div>
    <section className='hero-section'>
    <div class="custom-shape-divider-bottom">
@@ -103,5 +109,6 @@ export default function Home() {
 </section>
 
    </div>
+   </>
   )
 }

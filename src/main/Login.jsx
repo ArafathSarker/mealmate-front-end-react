@@ -1,6 +1,9 @@
 import React,{useEffect, useState} from 'react'
 import LoginImage from "../assets/login.png"
 import {Link,useNavigate} from "react-router-dom"
+import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useSend from '../customHooks/useSend';
 import "../style/login.css"
@@ -19,7 +22,6 @@ export default function Login() {
             }
           });
           const data = await res.json();
-          console.log(data);
           if(data.success){
             navigate('/');
           }
@@ -47,6 +49,7 @@ export default function Login() {
               [name]:value   
           }));
     }
+
     const handlelogin = async (e)=>{
       e.preventDefault();
       const res = await useSend("http://127.0.0.1:3000/app/mealmate/api/login",Values);
@@ -54,12 +57,50 @@ export default function Login() {
             { 
               localStorage.setItem("Authorization",res.token);
               localStorage.setItem("UserName",res.username);
-              navigate('/dashboard');
+              toast.success("Login Successful", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setTimeout(() => {
+                navigate('/dashboard');
+              }
+              , 2000);
             }
+            else if(res.status==400){
+              toast.error(res.message, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+            else{
+              toast.error("Something went wrong", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }    
           
     }
   
   return (
+    <>
+  <Helmet>
+        <title>MealMate - Login</title>
+  </Helmet>
     <div className='login-form-wrapper'>
     <form className='login-form' onSubmit={handlelogin}>
       <div className='login-input-wrapper' >
@@ -97,6 +138,7 @@ export default function Login() {
       </picture>
     </form>
   </div>
-  
+  <ToastContainer/>
+  </>
   )
 }

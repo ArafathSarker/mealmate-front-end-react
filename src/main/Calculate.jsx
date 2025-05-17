@@ -1,9 +1,14 @@
 import React,{useEffect, useState} from 'react'
 import GroupForm from './GroupForm'
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from "react-helmet";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../style/calculate.css'
+import ConfirmModal from './confirmModal'
 export default function Calculate() {
   const [checkCalculate,setcheckCalculate] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
    const [Values,setValues] = useState({
        addmembers:'',
@@ -63,7 +68,8 @@ export default function Calculate() {
     e.preventDefault();
   }
   //For adding members in the group with api
-  const handleaddmembersubmit = async ()=>{
+  const handleaddmembersubmit = async (e)=>{
+     e.preventDefault();
         try{
             const name = localStorage.getItem("UserName");
            const groupres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/group`,{
@@ -89,14 +95,37 @@ export default function Calculate() {
           });
 
           const adduserdata = await adduserres.json();
-          if(adduserdata.success || groupdata.success) navigate("/dashboard");
+          if(adduserdata.success && groupdata.success) {
+            toast.success(adduserdata.message, {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }else{
+            toast.error(adduserdata.message, {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+        
           
       }catch(err)
       {
            console.log(`Sorry error:${err}`);
       }
   }
-  const handledepositsubmit = async()=>{
+  //updating the deposit amount of the user
+  const handledepositsubmit = async(e)=>{
+     e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
      const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
@@ -120,16 +149,38 @@ export default function Calculate() {
         depositAmount:Values.deposit
       })
     });
-
+   const depositdata = await depositres.json();
     
-    if(depositres.ok) navigate("/dashboard");
+    if(depositres.ok) {
+      toast.success(depositdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error(depositdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
 }catch(err)
 {
      console.log(`Sorry error:${err}`);
 }
   }
-  const handleaddmealsubmit = async()=>{
+  const handleaddmealsubmit = async(e)=>{
+     e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
      const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
@@ -142,7 +193,7 @@ export default function Calculate() {
         })
       });
     const groupuserdata = await groupuserres.json();
-    const depositres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatemeals`,{
+    const mealres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatemeals`,{
       method:"post",
       headers:{
         'Content-Type': 'application/json'
@@ -153,9 +204,30 @@ export default function Calculate() {
         mealCount:Values.meal
       })
     });
-
+    const mealdata = await mealres.json();
+    if(mealres.ok){
+      toast.success(mealdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error(mealdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
-    if(depositres.ok) navigate("/dashboard");
     
 }catch(err)
 {
@@ -164,7 +236,8 @@ export default function Calculate() {
   }
 
   //adding cost to the group
-  const handleaddcostsubmit = async()=>{
+  const handleaddcostsubmit = async(e)=>{
+     e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
      const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
@@ -188,8 +261,29 @@ export default function Calculate() {
       })
     });
 
-    
-    if(addcostres.ok) navigate("/dashboard");
+    const addcostdata = await addcostres.json();
+    if(addcostres.ok){
+      toast.success(addcostdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error(addcostdata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
 }catch(err)
 {
@@ -197,7 +291,8 @@ export default function Calculate() {
 }
   }
   //clearing dues of the user
-  const handleclearduesubmit = async()=>{
+  const handleclearduesubmit = async(e)=>{
+    e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
     const cleardueres= await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/cleardue`,{
@@ -211,16 +306,79 @@ export default function Calculate() {
       })
     });
 
-    
-    if(cleardueres.ok) navigate("/dashboard");
+    const clearduedata = await cleardueres.json();
+     if(cleardueres.ok){
+      toast.success(clearduedata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error(clearduedata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
 }catch(err)
 {
      console.log(`Sorry error:${err}`);
 }
   }
+  //handleling pop up message
+  const handleConfirm = async () => {
+   
+    const name = localStorage.getItem("UserName");
+    const calres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/calculate`,{
+        method:"post",
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+      const caldata = await calres.json();
+    if(calres.ok){
+      toast.success(caldata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error(caldata.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+     setShowConfirm(false);
+  }
  return (
   <>
+  <Helmet>
+        <title>MealMate - Meal Cost Calculator</title>
+  </Helmet>
+  
   {checkCalculate && <div className='calculate-form-wrapper'>
     <form onSubmit={handleSubmit} className='calculate-form'>
     <div className="heading-wrapper">
@@ -295,11 +453,19 @@ export default function Calculate() {
          </label>
          <button type='submit' className='normalbtn' onClick={handleclearduesubmit}>clear</button>
         </div>
-        <button type='submit' className='calculatebtn'>Calculate</button>
+        <button type='button' className='calculatebtn'
+        onClick={() => setShowConfirm(true)}>Calculate</button>
         </div>
     </form>
+     <ToastContainer/>
   </div>}
   {!checkCalculate && <GroupForm /> }
+  {showConfirm && (
+  <ConfirmModal
+    onConfirm={handleConfirm}
+    onCancel={() => setShowConfirm(false)}
+  />
+)}
   </>
  
 

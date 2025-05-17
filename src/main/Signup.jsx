@@ -1,6 +1,9 @@
 import React ,{useState,useEffect} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import signupImage from "../assets/signup.png"
 import {Link,useNavigate} from "react-router-dom"
+import { Helmet } from "react-helmet";
 import "../style/signup.css"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useSend from '../customHooks/useSend';
@@ -54,11 +57,50 @@ export default function Signup() {
   const handlesignup = async (e)=>{
     e.preventDefault();
     const res = await useSend("http://127.0.0.1:3000/app/mealmate/api/signup",Values);
-    if(res.status==201)  navigate('/login');
+    if(res.status==201)  {
+      toast.success(res.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    }
+    else if(res.status==400){
+      toast.error(res.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else{
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
   
   
   return (
+     <>
+      <Helmet>
+            <title>MealMate - Create Account</title>
+      </Helmet>
     <div className='form-wrapper' >
        <form className='signup-form' onSubmit={handlesignup} 
        action='/signup' method='post'>
@@ -103,6 +145,7 @@ export default function Signup() {
       </form>
       
     </div>
-     
+    <ToastContainer/>
+     </>
   )
 }

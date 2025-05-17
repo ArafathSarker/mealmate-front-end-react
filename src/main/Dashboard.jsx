@@ -1,5 +1,7 @@
 import React, { useEffect,useState } from 'react';
+import { Helmet } from "react-helmet";
 import {useNavigate } from 'react-router-dom';
+import { IoLogOut } from "react-icons/io5";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -60,11 +62,24 @@ export default function Dashboard() {
       }
     })();
   }, []);
-
+//giving the loggingout function
+const handlelogout = ()=>{
+  localStorage.removeItem("Authorization");
+  localStorage.removeItem("UserName");
+  navigate('/login');
+  window.location.reload();
+}
   return (
+    <>
     
+      <Helmet>
+        <title>MealMate Dashboard</title>
+        <link rel="icon" type="image/png" href="/logo192.png" />
+      </Helmet>
+
+    <IoLogOut className='logout' onClick={handlelogout}/>
     <div className='dash-div'>
-      <h1 className='dashboard'>Dashboard</h1>
+       <h1 className='dashboard'>Dashboard</h1>
       <div className='dash-div-all'>
       <section className='dash-sec'>
         <h2>Total Cost</h2>
@@ -108,7 +123,7 @@ export default function Dashboard() {
       </section>
       </div>
     </div>
-    
+    </>
     
   );
 }

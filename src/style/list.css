@@ -1,0 +1,121 @@
+.listformcontainer {
+   width:100vw;
+    height: 100vh;
+    font-family: monospace,sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listformcontainer .listform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:2rem;
+  justify-content: center;
+  gap:0.8rem;
+  width: auto;
+  height: fit-content;
+  box-shadow:
+  0 4px 8px rgba(0, 0, 0, 0.08),
+  0 12px 24px rgba(0, 0, 0, 0.1);
+}
+.listform .listforminput{
+    display: flex;
+    justify-items: center;
+    gap:2rem;
+    align-items: left;
+}
+.listform .listformheading{
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #000;
+    text-align: center;
+}
+.listform label {
+    position: relative;
+    font-weight: bolder;
+    font-size: 1.1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    margin-bottom: 1.5em;
+}
+.listform label > input{
+    max-width: 100%;
+    height: 2em;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid rgb(199, 200, 199);
+    font-size: 1rem;
+  }
+
+  .listform label > span {
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+    color: #666;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .listform label > input:focus + span
+, .listform label > input:not(:placeholder-shown) + span { 
+  transform: translateY(-1.8em);
+  font-size: 0.85em;
+  color: black;
+}
+.listform label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+    z-index: 0;
+  }
+
+  .listform label:has(input:focus)::after {
+    width: 100%;
+  }
+
+  .listformbtn {
+    color: white;
+    width: 30%;
+    height: 2rem;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(88, 97, 97, 1) 100%);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listformbtn:hover {
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(49, 61, 61, 1) 92%);
+    cursor: pointer;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.listformbtn:active {
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+@media (max-width: 768px) {
+  .listformcontainer {
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    height: auto;                
+    min-height: 100vh;          
+    overflow-y: auto;            
+    padding-top: 1.5rem;        
+  }
+  .listformcontainer .listform {
+    width: 95%;
+    max-width: 500px;
+    height: auto;
+  }
+}
