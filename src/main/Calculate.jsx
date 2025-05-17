@@ -41,15 +41,15 @@ export default function Calculate() {
           });
           const data = await res.json();
           const checkData = await checkres.json();
+           if(data.success){
+            navigate('/calculate');
+          }
           if(checkData.success){
             setcheckCalculate(true);
           }
-          if(data.success){
-            navigate('/calculate');
-          }
+         
           
         } catch (err) {
-          console.error("Redirecting due to error:", err.message);
           navigate('/login');
         }
       })();
