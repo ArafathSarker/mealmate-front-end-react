@@ -8,6 +8,7 @@ import GroupLists from './displayList'
 import '../style/list.css'
 export default function List() {
   const [checkCalculate,setcheckCalculate] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [Values,setValues] = useState({
         item1_name:'',
         item1_price:'',
@@ -67,6 +68,9 @@ export default function List() {
           console.error("Redirecting due to error:", err.message);
           navigate('/login');
         }
+        finally {
+        setLoading(false); 
+      }
       })();
     }, []);
     //form handeling
@@ -106,7 +110,7 @@ export default function List() {
             const filterdItems = Object.fromEntries(
     Object.entries(items).filter(([key, value]) => value !== null)
   );
-    const addlist = await fetch(`import.meta.env.VITE_API_LINK +"data/addlist`,{
+    const addlist = await fetch(import.meta.env.VITE_API_LINK +`data/addlist`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -155,6 +159,10 @@ export default function List() {
   <Helmet>
           <title>MealMate - Group Item List</title>
     </Helmet>
+    {loading ? (
+        <div className="loading">Loading...</div> // <-- Show loading spinner or message
+      ) : (
+        <>
   {checkCalculate && <div>
      <div className='listformcontainer'>
            <form className='listform' onSubmit={handlelistformsubmit}>
@@ -331,6 +339,8 @@ export default function List() {
      </div>
   </div>}
   {!checkCalculate && <GroupForm /> }
+  </>
+)}
   </>
  
 

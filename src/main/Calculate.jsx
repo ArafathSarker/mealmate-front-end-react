@@ -9,6 +9,7 @@ import ConfirmModal from './confirmModal'
 export default function Calculate() {
   const [checkCalculate,setcheckCalculate] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
    const [Values,setValues] = useState({
        addmembers:'',
@@ -51,7 +52,9 @@ export default function Calculate() {
           
         } catch (err) {
           navigate('/login');
-        }
+        }finally {
+        setLoading(false); 
+      }
       })();
     }, []);
     //Updating the state values from input fields
@@ -378,7 +381,9 @@ export default function Calculate() {
   <Helmet>
         <title>MealMate - Meal Cost Calculator</title>
   </Helmet>
-  
+ {loading ? (
+        <div className="loading">Loading...</div> // <-- Show loading spinner or message
+      ) : (<>
   {checkCalculate && <div className='calculate-form-wrapper'>
     <form onSubmit={handleSubmit} className='calculate-form'>
     <div className="heading-wrapper">
@@ -465,6 +470,8 @@ export default function Calculate() {
     onConfirm={handleConfirm}
     onCancel={() => setShowConfirm(false)}
   />
+)}
+</>
 )}
   </>
  
