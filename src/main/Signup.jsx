@@ -14,7 +14,7 @@ export default function Signup() {
   
       (async () => {
         try {
-          const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+          const res = await fetch(import.meta.env.VITE_API_LINK +"dashboard", {
             method: "GET",
             headers: {
               'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function Signup() {
 
   const handlesignup = async (e)=>{
     e.preventDefault();
-    const res = await useSend("http://127.0.0.1:3000/app/mealmate/api/signup",Values);
+    const res = await useSend(import.meta.env.VITE_API_LINK +"signup",Values);
     if(res.status==201)  {
       toast.success(res.message, {
         position: "top-right",

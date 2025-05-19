@@ -23,14 +23,14 @@ export default function Calculate() {
       const name = localStorage.getItem("UserName");
       (async () => {
         try {
-          const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+          const res = await fetch(import.meta.env.VITE_API_LINK +"dashboard", {
             method: "GET",
             headers: {
               'Content-Type': 'application/json',
               'Authorization': token,
             }
           });
-          const checkres = await fetch("http://127.0.0.1:3000/app/mealmate/api/group/check/user", {
+          const checkres = await fetch(import.meta.env.VITE_API_LINK +"group/check/user", {
             method: "post",
             headers: {
               'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function Calculate() {
      e.preventDefault();
         try{
             const name = localStorage.getItem("UserName");
-           const groupres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/group`,{
+           const groupres = await fetch(import.meta.env.VITE_API_LINK +`data/group`,{
               method:"post",
               headers:{
                 'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ export default function Calculate() {
             });
             const groupdata = await groupres.json();
            const userList = Values.addmembers.split(" ");
-          const adduserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/adduser`,{
+          const adduserres = await fetch(import.meta.env.VITE_API_LINK +`group/adduser`,{
             method:"post",
             headers:{
               'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ export default function Calculate() {
      e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
-     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+     const groupuserres = await fetch(import.meta.env.VITE_API_LINK +`data/groupuser`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ export default function Calculate() {
         })
       });
     const groupuserdata = await groupuserres.json();
-    const depositres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatedeposit`,{
+    const depositres = await fetch(import.meta.env.VITE_API_LINK +`data/updatedeposit`,{
       method:"post",
       headers:{
         'Content-Type': 'application/json'
@@ -183,7 +183,7 @@ export default function Calculate() {
      e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
-     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+     const groupuserres = await fetch(import.meta.env.VITE_API_LINK +`data/groupuser`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ export default function Calculate() {
         })
       });
     const groupuserdata = await groupuserres.json();
-    const mealres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updatemeals`,{
+    const mealres = await fetch(import.meta.env.VITE_API_LINK +`data/updatemeals`,{
       method:"post",
       headers:{
         'Content-Type': 'application/json'
@@ -240,7 +240,7 @@ export default function Calculate() {
      e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
-     const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+     const groupuserres = await fetch(import.meta.env.VITE_API_LINK +`data/groupuser`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -250,7 +250,7 @@ export default function Calculate() {
         })
       });
     const groupuserdata = await groupuserres.json();
-    const addcostres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/updateaddcost`,{
+    const addcostres = await fetch(import.meta.env.VITE_API_LINK +`data/updateaddcost`,{
       method:"post",
       headers:{
         'Content-Type': 'application/json'
@@ -295,7 +295,7 @@ export default function Calculate() {
     e.preventDefault();
     try{
       const name = localStorage.getItem("UserName");
-    const cleardueres= await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/cleardue`,{
+    const cleardueres= await fetch(import.meta.env.VITE_API_LINK +`data/cleardue`,{
       method:"post",
       headers:{
         'Content-Type': 'application/json'
@@ -339,7 +339,7 @@ export default function Calculate() {
   const handleConfirm = async () => {
    
     const name = localStorage.getItem("UserName");
-    const calres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/calculate`,{
+    const calres = await fetch(import.meta.env.VITE_API_LINK +`group/calculate`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'

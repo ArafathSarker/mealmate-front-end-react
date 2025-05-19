@@ -14,7 +14,7 @@ export default function Login() {
   
       (async () => {
         try {
-          const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+          const res = await fetch(import.meta.env.VITE_API_LINK +"dashboard", {
             method: "GET",
             headers: {
               'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default function Login() {
 
     const handlelogin = async (e)=>{
       e.preventDefault();
-      const res = await useSend("http://127.0.0.1:3000/app/mealmate/api/login",Values);
+      const res = await useSend(import.meta.env.VITE_API_LINK +"login",Values);
           if(res.status==200) 
             { 
               localStorage.setItem("Authorization",res.token);

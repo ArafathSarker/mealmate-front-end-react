@@ -21,7 +21,7 @@ export default function GroupForm() {
       e.preventDefault();
       try{
             const username = localStorage.getItem("UserName");
-           const groupres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/user/${username}`,{
+           const groupres = await fetch(import.meta.env.VITE_API_LINK +`group/user/${username}`,{
               method:"post",
               headers:{
                 'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ export default function GroupForm() {
             });
             const groupdata = await groupres.json();
            const userList = Values.addmembers.split(" ");
-          const adduserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/group/adduser`,{
+          const adduserres = await fetch(import.meta.env.VITE_API_LINK +`group/adduser`,{
             method:"post",
             headers:{
               'Content-Type': 'application/json'

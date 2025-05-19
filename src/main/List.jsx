@@ -37,14 +37,15 @@ export default function List() {
       const name = localStorage.getItem("UserName");
       (async () => {
         try {
-          const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+          const res = await fetch(import.meta.env.VITE_API_LINK +"dashboard", {
             method: "GET",
             headers: {
               'Content-Type': 'application/json',
               'Authorization': token,
+
             }
           });
-          const checkres = await fetch("http://127.0.0.1:3000/app/mealmate/api/group/check/user", {
+          const checkres = await fetch(import.meta.env.VITE_API_LINK +"group/check/user", {
             method: "post",
             headers: {
               'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ export default function List() {
     const handlelistformsubmit = async (e) => {
       e.preventDefault();
        const name = localStorage.getItem("UserName");
-       const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+       const groupuserres = await fetch(import.meta.env.VITE_API_LINK +`data/groupuser`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -105,7 +106,7 @@ export default function List() {
             const filterdItems = Object.fromEntries(
     Object.entries(items).filter(([key, value]) => value !== null)
   );
-    const addlist = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/addlist`,{
+    const addlist = await fetch(`import.meta.env.VITE_API_LINK +"data/addlist`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'

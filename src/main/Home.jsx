@@ -11,7 +11,7 @@ export default function Home() {
         const token = localStorage.getItem("Authorization");
         (async()=>{      
                   try{        
-                    const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard",{
+                    const res = await fetch(import.meta.env.VITE_API_LINK+"dashboard",{
                       method:'GET',
                       headers:{
                         'Content-Type': 'application/json',

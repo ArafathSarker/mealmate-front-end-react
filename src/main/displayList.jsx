@@ -9,7 +9,7 @@ const GroupLists = () => {
         const fetchGroupLists = async () => {
             try {
                 const name = localStorage.getItem("UserName");
-       const groupuserres = await fetch(`http://127.0.0.1:3000/app/mealmate/api/data/groupuser`,{
+       const groupuserres = await fetch(import.meta.env.VITE_API_LINK +`data/groupuser`,{
         method:"post",
         headers:{
           'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ const GroupLists = () => {
         })
       });
         const groupuserdata = await groupuserres.json();
-                const response = await fetch('http://127.0.0.1:3000/app/mealmate/api/data/getlist', {
+                const response = await fetch(import.meta.env.VITE_API_LINK +`data/getlist`, {
                     method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json',

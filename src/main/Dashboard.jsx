@@ -23,7 +23,7 @@ export default function Dashboard() {
     const name = localStorage.getItem("UserName");
     (async () => {
       try {
-        const res = await fetch("http://127.0.0.1:3000/app/mealmate/api/dashboard", {
+        const res = await fetch(import.meta.env.VITE_API_LINK +"dashboard", {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export default function Dashboard() {
           }
         });
         await res.json();
-        const groupres = await fetch("http://127.0.0.1:3000/app/mealmate/api/data/group", {
+        const groupres = await fetch(import.meta.env.VITE_API_LINK +"data/group", {
           method: "post",
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export default function Dashboard() {
         });
        const groupData = await groupres.json();
        setgroupValues(groupData);
-       const groupUserres = await fetch("http://127.0.0.1:3000/app/mealmate/api/data/groupuser", {
+       const groupUserres = await fetch(import.meta.env.VITE_API_LINK +"data/groupuser", {
         method: "post",
         headers: {
           'Content-Type': 'application/json',
