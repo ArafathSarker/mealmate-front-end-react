@@ -176,6 +176,44 @@
 .no-dashboard-btn{
   display:none;
 }
+.developer-section {
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  text-align: center;
+}
+.developer-card h3 {
+  margin-bottom: 0.5rem;
+}
+.developer-card ul {
+  list-style: none;
+  padding: 0;
+}
+.developer-card li {
+  margin: 0.3rem 0;
+}
+.social-links {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  color: #222;
+  transition: color 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: #0077b5; /* LinkedIn blue for both, or use #333 for GitHub */
+  transform: scale(1.15);
+}
 @media (max-width: 768px) {
   .feature-card {
     text-align: center;
