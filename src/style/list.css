@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 .listformcontainer .listform {
   display: flex;
@@ -15,6 +16,7 @@
   gap:0.8rem;
   width: auto;
   height: fit-content;
+  box-sizing: border-box;
   box-shadow:
   0 4px 8px rgba(0, 0, 0, 0.08),
   0 12px 24px rgba(0, 0, 0, 0.1);
@@ -110,12 +112,16 @@
     align-items: center;
     height: auto;                
     min-height: 100vh;          
-    overflow-y: auto;            
+    overflow-y: auto;    
     padding-top: 1.5rem;        
   }
   .listformcontainer .listform {
-    width: 95%;
-    max-width: 500px;
+    width:100%;
     height: auto;
+  }
+  .listform .listforminput{
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 }
