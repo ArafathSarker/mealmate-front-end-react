@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from './Loading';
 import '../style/calculate.css'
 import ConfirmModal from './confirmModal'
 export default function Calculate() {
@@ -382,8 +383,8 @@ export default function Calculate() {
         <title>MealMate - Meal Cost Calculator</title>
   </Helmet>
  {loading ? (
-        <div className="loading">Loading...</div> // <-- Show loading spinner or message
-      ) : (<>
+        <Loading/>  
+            ) : (<>
   {checkCalculate && <div className='calculate-form-wrapper'>
     <form onSubmit={handleSubmit} className='calculate-form'>
     <div className="heading-wrapper">

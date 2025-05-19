@@ -3,10 +3,12 @@ import { Helmet } from "react-helmet";
 import "../style/homepage.css"
 import mobile from "../assets/mobile.png"
 import hero from "../assets/hero.png"
+import Loading from './Loading';
 import { useNavigate } from 'react-router-dom'
 export default function Home() {
   const navigate = useNavigate();
   const [showbutton,setbutton] = useState(false);
+  const [loading, setLoading] = useState(true);
       useEffect(()=>{
         const token = localStorage.getItem("Authorization");
         (async()=>{      
@@ -24,6 +26,9 @@ export default function Home() {
                catch(err){
                   setbutton(false);
                }
+                finally {
+        setLoading(false); 
+      }
   
               })();
       });
@@ -42,6 +47,10 @@ export default function Home() {
         <title>MealMate - Effortless Group Meal Management</title>
         
       </Helmet>
+      {loading ? (
+        <Loading/>
+      ) : (
+        <>
    <div>
    <section className='hero-section'>
    <div class="custom-shape-divider-bottom">
@@ -136,6 +145,8 @@ export default function Home() {
   </div>
 </section>
    </div>
+   </>
+      )}
    </>
   )
 }

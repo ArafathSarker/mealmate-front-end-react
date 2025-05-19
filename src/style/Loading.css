@@ -1,0 +1,49 @@
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-path {
+  stroke-dasharray: 150,200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash 1.2s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1,200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90,150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90,150;
+    stroke-dashoffset: -124;
+  }
+}
+
+.loading-text {
+  margin-top: 18px;
+  font-size: 1.3rem;
+  color: #2d3a4a;
+  font-weight: 500;
+  letter-spacing: 1px;
+}

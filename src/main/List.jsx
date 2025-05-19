@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from './Loading';
 import GroupLists from './displayList'
 import '../style/list.css'
 export default function List() {
@@ -160,7 +161,7 @@ export default function List() {
           <title>MealMate - Group Item List</title>
     </Helmet>
     {loading ? (
-        <div className="loading">Loading...</div> // <-- Show loading spinner or message
+      <Loading/>  
       ) : (
         <>
   {checkCalculate && <div>
