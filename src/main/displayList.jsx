@@ -41,7 +41,7 @@ const GroupLists = () => {
         };
 
         fetchGroupLists();
-    }, []);
+    });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -55,7 +55,14 @@ const GroupLists = () => {
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {groupLists.map((list, index) => (
                         <li key={list._id} style={{ marginBottom: '10px', padding: '10px', border: '1px solid #ddd' }}>
-                            <strong>List {index + 1}</strong>
+                            <div style={{
+                                display:"flex",
+                                justifyContent:"space-between"
+                            }}>
+                                <strong>List {index + 1}</strong>
+                                <p><strong>{list.name}</strong></p>
+                                </div>
+                            
                             <ul>
                                 {Object.entries(list).map(([key, value]) => {
                                     if (key.startsWith('item') && value?.name) {

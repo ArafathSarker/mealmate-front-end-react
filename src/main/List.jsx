@@ -118,6 +118,7 @@ export default function List() {
         },
         body:JSON.stringify({
             group:groupuserdata.group,
+            name,
             ...filterdItems
             
         })

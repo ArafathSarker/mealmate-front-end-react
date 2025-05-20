@@ -77,49 +77,51 @@ const handlelogout = ()=>{
         <link rel="icon" type="image/png" href="/logo192.png" />
       </Helmet>
 
-    <IoLogOut className='logout' onClick={handlelogout}/>
+    <IoLogOut title='logout' className='logout' onClick={handlelogout}/>
     <div className='dash-div'>
-       <h1 className='dashboard'>Dashboard</h1>
+      
+        <h1 className='dashboard'><span title='Group Name'>{groupValues.groupname}</span> Dashboard</h1>
+       
       <div className='dash-div-all'>
       <section className='dash-sec'>
         <h2>Total Cost</h2>
-        <span>{groupValues.totalCost} <FaBangladeshiTakaSign/></span>
+        <span><strong>{groupValues.totalCost} <FaBangladeshiTakaSign/></strong> </span>
       </section >
       <section className='dash-sec'>
         <h2>Total Deposit</h2>
-        <span>{groupValues.totalDeposit}<FaBangladeshiTakaSign/></span>
+        <span><strong>{groupValues.totalDeposit} <FaBangladeshiTakaSign/></strong></span>
       </section>
       <section className='dash-sec'>
         <h2>Total Meal</h2>
-        <span>{groupValues.totalMeal}</span>
+        <span><strong>{groupValues.totalMeal}</strong></span>
       </section >
       </div>
      <div className='dash-div-all'>
      <section className='dash-sec'>
-        <h2>Total Due</h2>
-        <span>{groupUserValues.due} <FaBangladeshiTakaSign/></span>
+        <h2>Due</h2>
+        <span style={{color:"red"}}> <strong>{groupUserValues.due} <FaBangladeshiTakaSign/></strong></span>
       </section>
       <section className='dash-sec'>
         <h2>Pending Amount</h2>
-        <span>{groupUserValues.refund} <FaBangladeshiTakaSign/></span>
+        <span style={{color:"green"}}><strong>{groupUserValues.refund}</strong> <FaBangladeshiTakaSign/></span>
       </section>
       <section className='dash-sec'>
         <h2>Meal</h2>
-        <span>{groupUserValues.numberofMeal}</span>
+        <span><strong>{groupUserValues.numberofMeal}</strong></span>
       </section>
      </div>
      <div className='dash-div-all'>
      <section className='dash-sec'>
         <h2>Your Deposite</h2>
-        <span>{groupUserValues.deposit}<FaBangladeshiTakaSign/></span>
+        <span><strong>{groupUserValues.deposit} <FaBangladeshiTakaSign/></strong></span>
       </section>
       <section className='dash-sec'>
         <h2>Total Consumed</h2>
-        <span>{groupUserValues.totalConsumed} <FaBangladeshiTakaSign/></span>
+        <span><strong>{groupUserValues.totalConsumed} <FaBangladeshiTakaSign/></strong> </span>
       </section >
       <section className='dash-sec'>
         <h2>Mealrate</h2>
-        <span>{groupValues.mealRate}<FaBangladeshiTakaSign/></span>
+        <span><strong>{groupValues.mealRate} <FaBangladeshiTakaSign/></strong></span>
       </section>
       </div>
     </div>
