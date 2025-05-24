@@ -2,9 +2,28 @@ import React, { useEffect,useState } from 'react';
 import { Helmet } from "react-helmet";
 import {useNavigate } from 'react-router-dom';
 import { IoLogOut } from "react-icons/io5";
+import { CgLogOut } from "react-icons/cg";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { MdModeEditOutline } from "react-icons/md";
+import { IoSettings } from "react-icons/io5";
+import LeaveGroup from './leavegroupconfirmation';
+import ConfirmChangeName from './confirmchangename';
+import ConfirmTotalDeposit from './confirmtotaldeposit';
+import ConfirmTotalMeal from './confirmtotalmeal';
+import ConfirmDue from './confirmdue';
+import ConfirmRefund from './confirmrefund';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [showSettings, setShowSettings] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showChange, setShowChange] = useState(false);
+  const [showTotalDeposit, setShowTotalDeposit] = useState(false);
+  const [showTotalMeal, setShowTotalMeal] = useState(false);
+  const [showDue, setShowDue] = useState(false);
+  const [showRefund, setShowRefund] = useState(false);
+  const [Value,setValue] = useState("");
   const [groupValues, setgroupValues] = useState({
     totalCost: 0,
     totalDeposit: 0,
@@ -69,6 +88,99 @@ const handlelogout = ()=>{
   navigate('/login');
   window.location.reload();
 }
+//giving the settings function
+const handleSettings = ()=>{
+   setShowSettings(prev => !prev);
+}
+//giving the confirm function
+const handleConfirmleavegroup = async () => {
+  const name = localStorage.getItem("UserName");
+  const res = await fetch(import.meta.env.VITE_API_LINK +"group/leave", {
+    method: "post",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify({
+      name
+    })
+  });
+  const data = await res.json();
+  if(res.ok) {
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }else{
+          toast.error(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+      
+}
+setShowConfirm(false);
+}
+//group name changing function
+const handleConfirmChangeName = async () => {
+  const name = localStorage.getItem("UserName");
+  const groupUserres = await fetch(import.meta.env.VITE_API_LINK +"data/groupuser", {
+        method: "post",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+     const groupUserData = await groupUserres.json();
+  const res = await fetch(import.meta.env.VITE_API_LINK +"group/changename", {
+    method: "post",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify({
+      groupId:groupUserData.group,
+      newGroupName:Value
+    })
+  });
+  const data = await res.json();
+  if(res.ok) {
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        else{
+          toast.error(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+}
+setShowChange(false);
+}
   return (
     <>
     
@@ -77,7 +189,31 @@ const handlelogout = ()=>{
         <link rel="icon" type="image/png" href="/logo192.png" />
       </Helmet>
 
-    <IoLogOut title='logout' className='logout' onClick={handlelogout}/>
+  <div>
+   <IoSettings
+  title='settings'
+  className='settings'
+  onClick={handleSettings}
+/>
+{showSettings && (
+  <div className="settings-dropdown">
+    <ul>
+      <li onClick={handlelogout}>
+        <IoLogOut className='logout' title='Logout' />
+        <span><b>Logout</b></span>
+      </li>
+      <li onClick={() => setShowConfirm(true)}>
+        <CgLogOut className='logout' title='Logout' />
+        <span><b>Leave Group</b></span>
+        </li>
+      <li onClick={() => setShowChange(true)}>
+        <MdModeEditOutline className='logout' title='Logout' />
+        <span><b>Group Name</b></span>
+        </li>
+    </ul>
+  </div>
+)}
+  </div>
     <div className='dash-div'>
       
         <h1 className='dashboard'><span title='Group Name'>{groupValues.groupname}</span> Dashboard</h1>
@@ -90,20 +226,32 @@ const handlelogout = ()=>{
       <section className='dash-sec'>
         <h2>Total Deposit</h2>
         <span><strong>{groupValues.totalDeposit} <FaBangladeshiTakaSign/></strong></span>
+     <button type='button' className='details-btn'
+     onClick={() => setShowTotalDeposit(true)}
+     >details</button>
       </section>
       <section className='dash-sec'>
         <h2>Total Meal</h2>
         <span><strong>{groupValues.totalMeal}</strong></span>
+        <button type='button' className='details-btn'
+        onClick={() => setShowTotalMeal(true)}
+        >details</button>
       </section >
       </div>
      <div className='dash-div-all'>
      <section className='dash-sec'>
         <h2>Due</h2>
         <span style={{color:"red"}}> <strong>{groupUserValues.due} <FaBangladeshiTakaSign/></strong></span>
+        <button type='button' className='details-btn'
+        onClick={() => setShowDue(true)}
+        >details</button>
       </section>
       <section className='dash-sec'>
         <h2>Pending Amount</h2>
         <span style={{color:"green"}}><strong>{groupUserValues.refund}</strong> <FaBangladeshiTakaSign/></span>
+        <button type='button' className='details-btn'
+        onClick={() => setShowRefund(true)}
+        >details</button>
       </section>
       <section className='dash-sec'>
         <h2>Meal</h2>
@@ -125,6 +273,40 @@ const handlelogout = ()=>{
       </section>
       </div>
     </div>
+    <ToastContainer/>
+    {showConfirm && (
+  <LeaveGroup
+    onConfirm={handleConfirmleavegroup}
+    onCancel={() => setShowConfirm(false)}
+  />
+)}
+    {showChange && (
+  <ConfirmChangeName
+    onConfirm={handleConfirmChangeName}
+    onCancel={() => setShowChange(false)}
+    fetchData={data => setValue(data)}
+  />
+)}
+{showTotalDeposit && (
+  <ConfirmTotalDeposit
+    onCancel={() => setShowTotalDeposit(false)}
+  />
+)}
+{showTotalMeal && (
+  <ConfirmTotalMeal
+    onCancel={() => setShowTotalMeal(false)}
+  />
+)}
+{showDue && (
+  <ConfirmDue
+    onCancel={() => setShowDue(false)}
+  />
+)}
+{showRefund && (
+  <ConfirmRefund
+    onCancel={() => setShowRefund(false)}
+  />
+)}
     </>
     
   );

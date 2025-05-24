@@ -28,7 +28,7 @@
 }
 .dash-div {
     width:100vw;
-    height: 90vh;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,17 +68,85 @@
    margin-top: 4rem;
   }
 .logout{
-    float: right;
     font-weight: bolder;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #000;
-    text-align: center;
-    transform: translate(-16rem,4rem);
 }
  .logout:hover{
         color: darkmagenta;
         cursor: pointer;
     }
+.settings{
+    font-weight: bolder;
+    font-size: 2rem;
+    color: #000;
+    transform: translate(16rem,4rem);
+}
+.settings:hover{
+        color: darkmagenta;
+        cursor: pointer;
+    }
+ 
+.settings-dropdown {
+  position: absolute;
+  transform: translate(16rem,4rem);
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  z-index: 1000;
+  min-width: 180px;
+  padding: 0.5rem 0;
+  font-family: monospace,sans-serif;
+}
+
+.settings-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-dropdown li {
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 1rem;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.settings-dropdown li:hover {
+  background: #f5f7fa;
+}
+.settings-dropdown li:has(:hover) .logout{
+    color: darkmagenta;
+
+}
+.details-btn {
+    color: white;
+    width: 20%;
+    height: 2rem;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    transform: translateY(0.5rem);
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(88, 97, 97, 1) 100%);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.details-btn:hover {
+    background: linear-gradient(90deg, rgba(18, 20, 20, 1) 0%, rgba(49, 61, 61, 1) 92%);
+    cursor: pointer;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.details-btn:active {
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
 @media (max-width: 768px) {
     .dashboard-nav {
         width: 100%;
@@ -118,12 +186,22 @@
         height: 2.1rem;
     }
     .logout{
-        float: right;
         font-weight: bolder;
-        transform: translate(-1rem,2rem);
     }
-    .logout:hover{
+    .settings-dropdown {
+        transform: translate(1rem,2rem);
+    }
+    .settings{
+        font-weight: bolder;
+        color: #000;
+        transform: translate(1rem,2rem);
+    }
+    .settings:hover{
         color: darkmagenta;
+    }
+    .details-btn {
+        width:25%;
+        height: 2rem;
     }
 }
 

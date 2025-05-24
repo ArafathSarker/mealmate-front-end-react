@@ -1,0 +1,93 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  font-family: monospace,sans-serif;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.confirm-btn, .cancel-btn {
+  margin: 1rem 0.5rem 0 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.confirm-btn { background: #28a745; color: #fff; }
+.cancel-btn { background: #dc3545; color: #fff; }
+.blur-bg {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+.changegroupnameform{
+   
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:1rem;
+    
+}
+.changegroupnameform label {
+  position: relative;
+  font-weight: bolder;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  margin-bottom: 1.5em;
+}
+
+.changegroupnameform label > input {
+  max-width: 100%;
+  height: 3em;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid rgb(199, 200, 199);
+  font-size: 1em;
+}
+
+.changegroupnameform label > span {
+  position: absolute;
+  left: 0;
+  font-size: 1em;
+  color: #666;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Floating effect when focused or not empty */
+.changegroupnameform label > input:focus + span
+, .changegroupnameform label > input:not(:placeholder-shown) + span { 
+  transform: translateY(-1.8em);
+  font-size: 0.85em;
+  color: black;
+}
+
+/* Underline animation */
+.changegroupnameform label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: black;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.changegroupnameform label:has(input:focus)::after {
+  width: 100%;
+}
