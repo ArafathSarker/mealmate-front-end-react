@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import {useNavigate } from 'react-router-dom';
 import { IoLogOut } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
+import { GrPowerReset } from "react-icons/gr";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
@@ -12,12 +13,14 @@ import ConfirmTotalDeposit from './confirmtotaldeposit';
 import ConfirmTotalMeal from './confirmtotalmeal';
 import ConfirmDue from './confirmdue';
 import ConfirmRefund from './confirmrefund';
+import ConfirmReset from './confirmreset';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function Dashboard() {
   const navigate = useNavigate();
   const [showSettings, setShowSettings] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showReset, setShowReset] = useState(false);
   const [showChange, setShowChange] = useState(false);
   const [showTotalDeposit, setShowTotalDeposit] = useState(false);
   const [showTotalMeal, setShowTotalMeal] = useState(false);
@@ -181,6 +184,55 @@ const handleConfirmChangeName = async () => {
 }
 setShowChange(false);
 }
+//Functionlity of reset api
+const handleShowReset = async ()=>{
+  const name = localStorage.getItem("UserName");
+  const groupUserres = await fetch(import.meta.env.VITE_API_LINK +"data/groupuser", {
+        method: "post",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify({
+          name
+        })
+      });
+     const groupUserData = await groupUserres.json();
+  const res = await fetch(import.meta.env.VITE_API_LINK +"group/reset", {
+    method: "post",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify({
+      groupId:groupUserData.group,
+    })
+  });
+  const data = await res.json();
+  if(res.ok) {
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        else{
+          toast.error(data.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+}
+  setShowReset(false)
+}
   return (
     <>
     
@@ -209,7 +261,11 @@ setShowChange(false);
       <li onClick={() => setShowChange(true)}>
         <MdModeEditOutline className='logout' title='Logout' />
         <span><b>Group Name</b></span>
-        </li>
+      </li>
+        <li onClick={()=> setShowReset(true)}>
+        <GrPowerReset className='logout' title='Logout' />
+        <span><b>Reset</b></span>
+      </li>
     </ul>
   </div>
 )}
@@ -305,6 +361,12 @@ setShowChange(false);
 {showRefund && (
   <ConfirmRefund
     onCancel={() => setShowRefund(false)}
+  />
+)}
+{showReset && (
+  <ConfirmReset
+    onCancel={() => setShowReset(false)}
+    onConfirm={handleShowReset}
   />
 )}
     </>
